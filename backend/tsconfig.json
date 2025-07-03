@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "target": "es2016",                  // Está OK, mas pode considerar "es2020" ou "esnext"
+    "module": "commonjs",                 // Está OK para Node.js
+    "esModuleInterop": true,              // Essencial, já está no seu!
+    "forceConsistentCasingInFileNames": true, // Boa prática, já está no seu!
+    "strict": true,                       // Boa prática para garantir tipagem forte
+    "skipLibCheck": true,                 // OK para ignorar tipos de libs (incluindo Prisma, se houver problemas internos)
+
+    // >>>>> Adições/Verificações Recomendadas <<<<<
+    "moduleResolution": "node",           // MUITO IMPORTANTE para Node.js e como o TS resolve módulos
+    "outDir": "./dist",                   // Diretório de saída para os arquivos JavaScript compilados
+    "rootDir": "./src",                   // Diretório raiz dos seus arquivos TypeScript
+    "resolveJsonModule": true             // Útil se você importa arquivos .json no seu código
+  },
+  "include": [
+    "src/**/*.ts"                        // Inclui todos os arquivos .ts dentro da pasta 'src'
+  ],
+  "exclude": [
+    "node_modules",                       // Exclui a pasta node_modules da compilação
+    "dist"                                // Exclui a pasta de saída
+  ]
+}
