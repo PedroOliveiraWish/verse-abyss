@@ -32,7 +32,13 @@ export class FavoriteService {
                     text: {
                         select: {
                             tag: true,
-                            user: true,
+                            user: {
+                                select: {
+                                    id: true,
+                                    nome: true,
+                                    email: true
+                                }
+                            },
                             id: true,
                             conteudo: true,
                             titulo: true,

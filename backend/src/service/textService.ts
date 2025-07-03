@@ -44,7 +44,7 @@ export class TextService {
                 }
             });
 
-            return allTexts as Text[];
+            return allTexts;
         } catch (e) {
             console.error("Não foi possível obter todos os textos: " + e)
             throw new Error("Não foi possível obter os textos devido a um problema interno!")
@@ -69,7 +69,32 @@ export class TextService {
                 }
             })
 
-            return allTexts as Text[];
+            return allTexts;
+        } catch (e) {
+            console.error("Não foi possível obter todos os textos: " + e)
+            throw new Error("Não foi possível obter os textos devido a um problema interno!")
+        }
+    }
+
+    async getAllTextsByUserId(userId: number): Promise<Text[]> {
+        try {
+            const allTexts = await prisma.text.findMany({
+                where: {
+                    userId: userId
+                },
+                include: {
+                    tag: true,
+                    user: {
+                        select: {
+                            id: true,
+                            nome: true,
+                            email: true
+                        }
+                    }
+                }
+            })
+
+            return allTexts;
         } catch (e) {
             console.error("Não foi possível obter todos os textos: " + e)
             throw new Error("Não foi possível obter os textos devido a um problema interno!")

@@ -1,8 +1,11 @@
 import { User } from "@prisma/client";
 import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
 import prisma from "../lib/prisma";
 
 export class UserService {
+    private JWT_SECRET = process.env.JWT_SECRET || "Meu"
+
     async createUser(nome: string, email: string, password: string): Promise<User> {
         // hash da senha
         const salt = await bcrypt.genSalt(10);
@@ -38,7 +41,7 @@ export class UserService {
         }
     }
 
-    async loginUser(email: string, password: string): Promise<User | null> {
+    async loginUser(email: string, password: string): Promise<User | null | string> {
         try {
             const user = await prisma.user.findUnique({
                 where: {
@@ -56,10 +59,40 @@ export class UserService {
                 return null;
             }
 
-            return user;
+            const tokenPayload = {
+                userId: user.id,
+                email: user.email
+            }
+
+            const token = jwt.sign(
+                tokenPayload,
+                this.JWT_SECRET,
+                { expiresIn: "24h" }
+            )
+
+            return token;
         } catch (e) {
             console.error("Não foi possível fazer login! " + e)
             throw new Error("Não foi possível fazer login");
+        }
+    }
+
+    async getUserById(userId: number): Promise<User | null> {
+        try {
+            const userFound = await prisma.user.findUnique({
+                where: {
+                    id: userId
+                }
+            })
+
+            if (!userFound) {
+                return null;
+            }
+
+            return userFound;
+        } catch (e) {
+            console.error("Não foi encontrar o usuário! " + e)
+            throw new Error("Não foi possível encontrar o usuário");
         }
     }
 }
