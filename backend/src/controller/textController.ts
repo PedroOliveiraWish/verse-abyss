@@ -5,8 +5,18 @@ import { Response, Request } from 'express';
 const textService = new TextService();
 
 export class TextController {
+
+    // rota protegida - exige JWT
     async createText(req: Request, res: Response): Promise<Response> {
-        const { userId, tagId, titulo, conteudo } = req.body;
+        const { tagId, titulo, conteudo } = req.body;
+
+        const user = req.user;
+
+        if (!user || typeof user === "string") {
+            return res.status(400).json({ message: "Usuário não identificado no token" })
+        }
+
+        const userId = user.userId;
 
         try {
             const newTest = await textService.createText(userId, tagId, titulo, conteudo)
@@ -21,11 +31,12 @@ export class TextController {
         }
     }
 
+    // Rota pública - não exige autenticação
     async getAllTexts(req: Request, res: Response): Promise<Response> {
         try {
             const allTexts = await textService.getAllTexts();
 
-            if (!allTexts) {
+            if (allTexts.length == 0) {
                 return res.status(400).send({ message: "Não foi possível obter todos os textos devido a um erro interno!" })
             }
 
@@ -35,13 +46,14 @@ export class TextController {
         }
     }
 
+    // Rota pública - não exige autenticação
     async getAllTextsByTagId(req: Request, res: Response): Promise<Response> {
         const { tagId } = req.params;
 
         try {
             const allTexts = await textService.getTextsByTagId(Number(tagId));
 
-            if (!allTexts) {
+            if (allTexts.length === 0) {
                 return res.status(400).send({ message: "Não foi possível obter todos os textos devido a um erro interno!" })
             }
 
@@ -51,8 +63,15 @@ export class TextController {
         }
     }
 
+    // Rota protegida - exige autenticação 
     async getAllTextsByUserId(req: Request, res: Response): Promise<Response> {
-        const { userId } = req.params;
+        const user = req.user;
+
+        if (!user || typeof user === "string") {
+            return res.status(400).json({ message: "Usuário não identificado no token" })
+        }
+
+        const userId = user.userId;
 
         try {
             const allTexts = await textService.getAllTextsByUserId(Number(userId))

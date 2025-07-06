@@ -6,7 +6,7 @@ import prisma from "../lib/prisma";
 export class UserService {
     private JWT_SECRET = process.env.JWT_SECRET || "Meu"
 
-    async createUser(nome: string, email: string, password: string): Promise<User> {
+    async createUser(nome: string, email: string, password: string): Promise<User | null> {
         // hash da senha
         const salt = await bcrypt.genSalt(10);
         const passwordHash = await bcrypt.hash(password, salt);
@@ -35,13 +35,13 @@ export class UserService {
             return newUser;
         } catch (e) {
             console.error("Não foi possível criar um usuário: " + e)
-            throw new Error("Não foi possível criar um novo usuário devido a um problema interno!")
+            throw e;
         } finally {
             await prisma.$disconnect();
         }
     }
 
-    async loginUser(email: string, password: string): Promise<User | null | string> {
+    async loginUser(email: string, password: string): Promise<{ user: User; token: string }> {
         try {
             const user = await prisma.user.findUnique({
                 where: {
@@ -50,13 +50,13 @@ export class UserService {
             })
 
             if (!user) {
-                return null;
+                throw new Error("Usuário não encontrado! Por favor, cadastre-se")
             }
 
             const isPasswordValid = await bcrypt.compare(password, user.passwordHash);
 
             if (!isPasswordValid) {
-                return null;
+                throw new Error("Senha inválida")
             }
 
             const tokenPayload = {
@@ -70,14 +70,19 @@ export class UserService {
                 { expiresIn: "24h" }
             )
 
-            return token;
+            const userReturn = {
+                user,
+                token
+            }
+
+            return userReturn
         } catch (e) {
             console.error("Não foi possível fazer login! " + e)
-            throw new Error("Não foi possível fazer login");
+            throw e;
         }
     }
 
-    async getUserById(userId: number): Promise<User | null> {
+    async getUserById(userId: number): Promise<User> {
         try {
             const userFound = await prisma.user.findUnique({
                 where: {
@@ -86,13 +91,13 @@ export class UserService {
             })
 
             if (!userFound) {
-                return null;
+                throw new Error("Não foi possível encontrar o usuário. Faça login!")
             }
 
             return userFound;
         } catch (e) {
             console.error("Não foi encontrar o usuário! " + e)
-            throw new Error("Não foi possível encontrar o usuário");
+            throw e;
         }
     }
 }

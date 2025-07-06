@@ -1,11 +1,13 @@
 import { Router } from "express";
 import { UserController } from "../controller/userController";
+import verifyToken from "../middleware/auth";
 
 const userController = new UserController();
 
 const router = Router();
 
-router.get('/get-by-id', async (req, res) => {
+// Rota protegida - exige autenticação
+router.get('/get-by-id', verifyToken ,  async (req, res) => {
     try {
         await userController.getUserById(req, res)
     } catch (err) {
@@ -13,6 +15,7 @@ router.get('/get-by-id', async (req, res) => {
     }
 })
 
+// Rota pública - não exige autenticação
 router.post('/register', async (req, res) => {
     try {
         await userController.createUser(req, res)
@@ -21,6 +24,7 @@ router.post('/register', async (req, res) => {
     }
 })
 
+// Rota pública - não exige autenticação 
 router.post('/login', async (req, res) => {
     try {
         await userController.loginUser(req, res)

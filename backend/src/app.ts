@@ -10,7 +10,7 @@ app.use(express.json())
 app.use('/api', routes)
 app.use('/auth', userRoutes);
 
-const port = 3000;
+const port = 3001;
 
 app.listen(port, () => {
     console.log("Servidor rodando na porta: " + port)

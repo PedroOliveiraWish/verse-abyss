@@ -1,11 +1,13 @@
 import { Router } from "express";
 import { FavoriteController } from "../controller/favoriteController";
+import verifyToken from "../middleware/auth";
 
 const favoriteController = new FavoriteController();
 
 const router = Router();
 
-router.get('/get-by-user/:userId', async (req, res) => {
+// Rota protegida - exige autenticação
+router.get('/get-by-user/:userId', verifyToken , async (req, res) => {
     try {
         await favoriteController.getAllFavoriteByUserId(req, res)
     } catch (e) {
@@ -13,7 +15,8 @@ router.get('/get-by-user/:userId', async (req, res) => {
     }
 })
 
-router.post('/create-favorite', async (req, res) => {
+// Rota protegida - exige autenticação
+router.post('/create-favorite', verifyToken , async (req, res) => {
     try {
         await favoriteController.createFavorite(req, res)
     } catch (e) {

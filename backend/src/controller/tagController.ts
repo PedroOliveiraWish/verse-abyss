@@ -4,6 +4,7 @@ import { TagService } from "../service/tagService";
 const tagService = new TagService();
 
 export class TagController {
+    // Rota pública - não exige autenticação
     async getAllTags(req: Request, res: Response): Promise<Response> {
         try {
             const allTags = await tagService.getAllTags();

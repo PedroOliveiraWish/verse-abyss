@@ -5,6 +5,7 @@ const tagController = new TagController();
 
 const router = Router();
 
+// Rota pública - não exige autenticação
 router.get('/get-all', async (req, res) => {
     try {
         await tagController.getAllTags(req, res)

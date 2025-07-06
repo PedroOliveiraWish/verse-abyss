@@ -1,10 +1,12 @@
 import { Router } from "express";
 import { TextController } from "../controller/textController";
+import verifyToken from "../middleware/auth";
 
 const textController = new TextController();
 
 const router = Router();
 
+// Rota pública - não exige autenticação 
 router.get('/get-all', async (req, res) => {
     try {
         await textController.getAllTexts(req, res)
@@ -13,6 +15,7 @@ router.get('/get-all', async (req, res) => {
     }
 })
 
+// Rota pública - não exige autenticação
 router.get('/get-by-tag/:tagId', async (req, res) => {
     try {
         await textController.getAllTextsByTagId(req, res)
@@ -21,7 +24,8 @@ router.get('/get-by-tag/:tagId', async (req, res) => {
     }
 })
 
-router.get('/get-by-user/:userId', async (req, res) => {
+// Rota protegida - exige autenticação
+router.get('/get-by-user/:userId', verifyToken , async (req, res) => {
     try {
         await textController.getAllTextsByUserId(req, res)
     } catch (err) {
@@ -29,6 +33,7 @@ router.get('/get-by-user/:userId', async (req, res) => {
     }
 })
 
+// Rota protegida - exige autenticação
 router.post('/create-text', async (req, res) => {
     try {
         await textController.createText(req, res)

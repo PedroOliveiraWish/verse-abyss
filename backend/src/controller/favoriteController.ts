@@ -5,7 +5,15 @@ const favoriteService = new FavoriteService();
 
 export class FavoriteController {
     async createFavorite(req: Request, res: Response): Promise<Response> {
-        const { textId, userId } = req.body;
+        const { textId } = req.body;
+
+        const user = req.user;
+
+        if (!user || typeof user === "string") {
+            return res.status(400).json({ message: "Usuário não identificado no token" })
+        }
+
+        const userId = user.userId;
 
         try {
             const newFavorite = await favoriteService.createFavorite(textId, userId)
@@ -21,12 +29,18 @@ export class FavoriteController {
     }
 
     async getAllFavoriteByUserId(req: Request, res: Response): Promise<Response> {
-        const { userId } = req.params;
+        const user = req.user;
+
+        if (!user || typeof user === "string") {
+            return res.status(400).json({ message: "Usuário não identificado no token" })
+        }
+
+        const userId = user.userId;
 
         try {
             const allTextsFavorited = await favoriteService.getAllFavoriteByUserId(Number(userId));
 
-            if (!allTextsFavorited) {
+            if (allTextsFavorited.length === 0) {
                 return res.status(404).send({ message: "Não foi possível obter os textos favoritados!" })
             }
 
