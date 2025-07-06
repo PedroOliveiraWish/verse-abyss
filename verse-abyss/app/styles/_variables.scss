@@ -1,9 +1,40 @@
 :root {
-  --background-app: #0D0C1D;        // 🌑 Escuridão Silenciosa
+  --background-app: #0d0c1d;        // 🌑 Escuridão Silenciosa
   --background-surface: #1A1A2E;    // 🕯️ Manto do Vazio
+
   --primary-color: #C084FC;         // ✨ Luz do Abismo
   --secondary-color: #A855F7;       // 🔮 Eco Espiritual
+  --accent-light: #D8B4FE;          // 🪽 Vento Etéreo
+
   --text-primary: #E0D4FD;          // 🌫️ Neblina Sagrada
+  --text-secondary: #A89BBD;        // 🕊️ Murmúrio Perdido
+  --text-muted: #7F73A1;            // 💭 Sonho Evaporado
+
   --focus-glow: #5B21B6;            // 🧿 Magia Contida
   --visited-link: #7C3AED;          // 🚪 Porta Estelar
+  --link-hover: #BAA2FF;            // 🔗 Toque Celeste
+
+  --button-bg: var(--primary-color);        // 🔘 Portal Ametista
+  --button-bg-hover: #9333EA;              // 🔮 Energia Crescente
+  --button-bg-active: #6B21A8;             // 💥 Colapso Violeta
+  --button-text: #FFFFFF;                  // ✉️ Palavra Sagrada
+  --button-disabled: #3A2D56;              // 🛑 Chave Enferrujada
+
+  --input-bg: #25243A;                     // 🕳️ Recipiente de Pensamento
+  --input-border: #373558;                 // 📏 Margem do Subconsciente
+  --input-placeholder: #6B6A7C;            // 🖋️ Palavra Não Escrita
+  --input-focus-ring: var(--accent-light); // 🧠 Clarão Introspectivo
+
+  --card-bg: #1F1E2E;                      // 🪞 Espelho Interior
+  --card-shadow: rgba(0, 0, 0, 0.25);      // 🌘 Reflexo do Nada
+
+  --scrollbar-track: #14131F;             // 🛤️ Caminho da Alma
+  --scrollbar-thumb: var(--primary-color); // 🌀 Movimento Contido
+  --scrollbar-thumb-hover: #C4A5FA;       // ✨ Fluxo de Consciência
+
+  --overlay-bg: rgba(13, 12, 29, 0.85);    // 🧥 Véu do Invisível
+
+  --success-color: #22C55E;               // 🌱 Broto de Esperança
+  --warning-color: #FACC15;               // ⚠️ Luz que Vacila
+  --error-color: #EF4444;                 // 💔 Corte na Realidade
 }
