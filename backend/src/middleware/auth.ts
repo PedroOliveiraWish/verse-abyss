@@ -23,6 +23,8 @@ export default function verifyToken(req: Request, res: Response, next: NextFunct
 
     const tokenReplaced = token.split(',')[1];
 
+    console.log(tokenReplaced)
+
     try {
         const decoded = jwt.verify(tokenReplaced, JWT_SECRET);
 

@@ -31,16 +31,24 @@ export class TextController {
         }
     }
 
-    // Rota pública - não exige autenticação
+    // Rota privada - exige autenticação
     async getAllTexts(req: Request, res: Response): Promise<Response> {
+
+        const page = Number(req.query.page) || 1;
+        const limit = Number(req.query.limit) || 10;
+
+        const user = req.user;
+
+        if (!user || typeof user === "string") {
+            return res.status(400).json({ message: "Usuário não identificado no token" })
+        }
+
+        const userId = user.userId;
+
         try {
-            const allTexts = await textService.getAllTexts();
+            const allTexts = await textService.getAllTexts(page, limit, Number(userId));
 
-            if (allTexts.length == 0) {
-                return res.status(400).send({ message: "Não foi possível obter todos os textos devido a um erro interno!" })
-            }
-
-            return res.status(200).send({ message: "Textos obtidos com sucesso", texts: allTexts })
+            return res.status(200).send({ message: "Textos obtidos com sucesso", texts: allTexts.texts })
         } catch (error) {
             return res.status(500).send({ message: "Erro interno do servidor" });
         }
@@ -50,12 +58,14 @@ export class TextController {
     async getAllTextsByTagId(req: Request, res: Response): Promise<Response> {
         const { tagId } = req.params;
 
-        try {
-            const allTexts = await textService.getTextsByTagId(Number(tagId));
+        const page = Number(req.query.page) || 1;
+        const limit = Number(req.query.limit) || 10;
+        
+        console.log('page') 
+        console.log(page)
 
-            if (allTexts.length === 0) {
-                return res.status(400).send({ message: "Não foi possível obter todos os textos devido a um erro interno!" })
-            }
+        try {
+            const allTexts = await textService.getTextsByTagId(Number(tagId), page, limit);
 
             return res.status(200).send({ message: "Textos obtidos com sucesso", texts: allTexts })
         } catch (error) {

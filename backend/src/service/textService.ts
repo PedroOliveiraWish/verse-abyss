@@ -29,47 +29,96 @@ export class TextService {
         }
     }
 
-    async getAllTexts(): Promise<Text[]> {
+    async getAllTexts(page: number, limit: number, userId: number): Promise<{ texts: Text[], total: number, limit: number, page: number }> {
         try {
-            const allTexts = await prisma.text.findMany({
-                include: {
-                    tag: true,
-                    user: {
-                        select: {
-                            id: true,
-                            nome: true,
-                            email: true
-                        }
-                    }
-                }
-            });
 
-            return allTexts;
+            const skip = (page - 1) * limit;
+
+            const [texts, total] = await Promise.all([
+                prisma.text.findMany({
+                    skip,
+                    take: limit,
+                    include: {
+                        tag: true,
+                        user: {
+                            select: {
+                                id: true,
+                                nome: true,
+                                email: true
+                            }
+                        },
+                        favoritos: true,
+                        _count: {
+                            select: {
+                                favoritos: true
+                            }
+                        }
+                    },
+                    orderBy: {
+                        criadoEm: 'desc'
+                    }
+                }),
+                prisma.text.count()
+            ])
+
+            const textWIthFavoriteStatusCount = texts.map((text) => {
+                const textObject: (Text & { isFavorited?: boolean, quantFavoritos?: number }) = {
+                    ...text,
+                    isFavorited: userId ? (text.favoritos?.length > 0) : undefined,
+                    quantFavoritos: text._count?.favoritos
+                }
+
+                return textObject
+            })
+
+            return {
+                texts: textWIthFavoriteStatusCount,
+                total,
+                page,
+                limit
+            }
         } catch (e) {
             console.error("Não foi possível obter todos os textos: " + e)
             throw new Error("Não foi possível obter os textos devido a um problema interno!")
         }
     }
 
-    async getTextsByTagId(tagId: number): Promise<Text[]> {
+    async getTextsByTagId(tagId: number, page: number, limit: number): Promise<{ texts: Text[], total: number, limit: number, page: number }> {
         try {
-            const allTexts = await prisma.text.findMany({
-                where: {
-                    tagId: tagId
-                },
-                include: {
-                    tag: true,
-                    user: {
-                        select: {
-                            id: true,
-                            nome: true,
-                            email: true
-                        }
-                    }
-                }
-            })
 
-            return allTexts;
+            const skip = (page - 1) * limit;
+
+
+            const [texts, total] = await Promise.all([
+                prisma.text.findMany({
+                    skip,
+                    take: limit,
+                    where: {
+                        tagId: tagId
+                    },
+                    include: {
+                        tag: true,
+                        user: {
+                            select: {
+                                id: true,
+                                nome: true,
+                                email: true
+                            }
+                        }
+                    },
+                    orderBy: {
+                        criadoEm: 'desc'
+                    }
+                }),
+                prisma.text.count()
+            ])
+
+            return {
+                texts,
+                total,
+                page,
+                limit
+            }
         } catch (e) {
             console.error("Não foi possível obter todos os textos: " + e)
             throw new Error("Não foi possível obter os textos devido a um problema interno!")

@@ -6,8 +6,8 @@ const textController = new TextController();
 
 const router = Router();
 
-// Rota pública - não exige autenticação 
-router.get('/get-all', async (req, res) => {
+// Rota privada - exige autenticação 
+router.get('/get-all/:userId', verifyToken, async (req, res) => {
     try {
         await textController.getAllTexts(req, res)
     } catch (err) {
