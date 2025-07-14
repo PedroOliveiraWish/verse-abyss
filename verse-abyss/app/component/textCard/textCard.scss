@@ -1,0 +1,157 @@
+@import "../../styles/variables";
+
+.text-card {
+  background-color: var(--card-bg);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  color: var(--text-primary);
+  box-shadow: 0 4px 10px var(--card-shadow);
+  transition: background 0.3s ease;
+  width: 100%;
+
+  &:hover {
+    background-color: var(--background-surface);
+  }
+
+  .header-text-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .people {
+      display: flex;
+      align-items: center;
+
+      .avatar-fallback {
+        background-color: var(--primary-color);
+        text-transform: uppercase;
+        color: var(--background-app);
+        border-radius: 9999px;
+        width: 2.5rem;
+        height: 2.5rem;
+        font-weight: bold;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-right: 1rem;
+      }
+
+      .nome-email {
+        display: flex;
+        flex-direction: column;
+
+        .nome {
+          font-weight: bold;
+          font-size: 1rem;
+          color: var(--text-primary);
+        }
+
+        .data {
+          font-size: 0.75rem;
+          color: var(--text-muted);
+        }
+      }
+    }
+
+    .dropdown {
+      button {
+        background: transparent;
+        border: none;
+        color: var(--text-primary);
+        cursor: pointer;
+
+        &:hover {
+          color: var(--secondary-color);
+        }
+      }
+
+      [data-radix-dropdown-menu-content] {
+        background-color: var(--background-app);
+        border: 1px solid var(--focus-glow);
+        border-radius: 0.5rem;
+        padding: 0.5rem;
+
+        [data-radix-dropdown-menu-item] {
+          padding: 0.5rem 0.75rem;
+          color: var(--text-primary);
+          font-size: 0.875rem;
+          border-radius: 0.25rem;
+
+          &:hover {
+            background-color: var(--background-surface);
+          }
+        }
+
+        [data-radix-dropdown-menu-separator] {
+          height: 1px;
+          background-color: var(--input-border);
+          margin: 0.5rem 0;
+        }
+      }
+    }
+  }
+
+  .separator {
+    height: 1px;
+    background-color: var(--input-border);
+    margin: 1rem 0;
+  }
+
+  .body-text-card {
+    .title-text-card {
+      font-size: 1.25rem;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+      color: var(--text-primary);
+    }
+
+    .content-text-card {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+  }
+
+  .footer-text-card {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .tag-footer-card {
+      font-size: 0.75rem;
+      color: var(--accent-light);
+      background-color: var(--background-app);
+      display: inline-block;
+      padding: 0.3rem 0.6rem;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: 600;
+    }
+
+    .favorito-info {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+
+      .heart-icon {
+        color: var(--text-muted);
+        transition: color 0.2s ease;
+
+        &.favorited {
+          color: white;
+        }
+
+        &:hover {
+          color: var(--accent-light);
+        }
+      }
+
+      .quantidade-favoritos {
+        font-size: 0.85rem;
+        color: var(--text-secondary);
+      }
+    }
+  }
+}

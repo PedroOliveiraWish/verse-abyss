@@ -1,0 +1,49 @@
+@import '../../../styles/variables';
+
+.tag-page {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+
+  .tags {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    place-items: center;
+    margin-top: 2rem;
+    padding: 2rem 0 3rem 0;
+    max-height: 65vh;
+    overflow-y: auto;
+    height: 100%;
+
+    @media screen and (max-width: 768px) {
+        max-height: 50vh;
+        grid-template-columns: repeat(auto-fill, minmax(300px, fr));
+    }
+
+    .tag-card {
+      background-color: var(--card-bg);             // 🪞 Espelho Interior
+      padding: 1rem 1.5rem;
+      border-radius: 1rem;
+      color: var(--accent-light);                   // 🪽 Vento Etéreo
+      font-weight: bold;
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      box-shadow: 0 4px 12px var(--card-shadow);    // 🌘 Reflexo do Nada
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      cursor: pointer;
+
+      p {
+        margin: 0;
+        text-align: center;
+      }
+
+      &:hover {
+        background-color: var(--background-surface); // 🕯️ Manto do Vazio
+        transform: translateY(-2px);
+      }
+    }
+  }
+}

@@ -1,0 +1,30 @@
+.hero {
+  text-align: center;
+  padding: 2rem 0 0 0;
+  max-width: 800px;
+  margin: 0 auto;
+  height: 30vh;
+
+  h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--accent-light);
+    margin-bottom: 1rem;
+    text-shadow: 0 0 10px var(--focus-glow);
+  }
+
+  p {
+    color: var(--text-secondary);
+    font-size: 1.2rem;
+    line-height: 1.8;
+    margin-bottom: 1rem;
+  }
+
+  .hero-sub {
+    color: var(--text-muted);
+    font-style: italic;
+    letter-spacing: 1px;
+    margin-top: 1.5rem;
+    font-size: 1rem;
+  }
+}
