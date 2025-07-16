@@ -29,6 +29,10 @@ export class FavoriteController {
     }
 
     async getAllFavoriteByUserId(req: Request, res: Response): Promise<Response> {
+
+        const page = Number(req.query.page) || 1;
+        const limit = Number(req.query.limit) || 10;
+
         const user = req.user;
 
         if (!user || typeof user === "string") {
@@ -38,11 +42,7 @@ export class FavoriteController {
         const userId = user.userId;
 
         try {
-            const allTextsFavorited = await favoriteService.getAllFavoriteByUserId(Number(userId));
-
-            if (allTextsFavorited.length === 0) {
-                return res.status(404).send({ message: "Não foi possível obter os textos favoritados!" })
-            }
+            const allTextsFavorited = await favoriteService.getAllFavoriteByUserId(Number(userId), page, limit);
 
             return res.status(200).send({ message: "Textos favoritados obtidos com sucesso!", allTextsFavorited: allTextsFavorited })
         } catch (e) {

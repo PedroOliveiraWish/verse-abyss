@@ -22,9 +22,15 @@ export class FavoriteService {
         }
     }
 
-    async getAllFavoriteByUserId(userId: number): Promise<Favorite[]> {
+    async getAllFavoriteByUserId(userId: number, page: number, limit: number): Promise<{favorites: Favorite[], total: number, limit: number, page: number}> {
         try {
-            const allTextsFavorited = await prisma.favorite.findMany({
+
+            const skip = (page - 1) * limit;
+
+            const [text, total] = await Promise.all([
+                prisma.favorite.findMany({
+                skip,
+                take: limit,
                 where: {
                     userId: userId
                 },
@@ -46,9 +52,16 @@ export class FavoriteService {
                         }
                     }
                 }
-            })
+            }),
+            prisma.favorite.count()
+            ])
 
-            return allTextsFavorited;
+            return {
+                favorites: text,
+                total,
+                page,
+                limit
+            }
         } catch (e) {
             console.error("Não foi possível obter os favoritos: " + e)
             throw new Error("Não foi possível obter os favoritos devido a um problema interno")
