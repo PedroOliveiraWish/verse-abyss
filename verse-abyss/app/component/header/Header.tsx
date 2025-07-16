@@ -28,7 +28,7 @@ export function Header() {
             <HomeIcon />
             <span>Início</span>
           </li>
-          <li>
+          <li onClick={() => router.push('/main/favorito')}>
             <StarIcon />
             <span>Favoritos</span>
           </li>

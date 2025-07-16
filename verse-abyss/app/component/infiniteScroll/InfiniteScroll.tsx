@@ -42,7 +42,7 @@ export default function InfiniteScrollTexts() {
 
   return (
     <div
-      id="scrollableDiv"
+      
 
     >
       <InfiniteScroll

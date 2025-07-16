@@ -2,6 +2,8 @@ import { Text } from "@/pages/interface/text";
 import { Avatar } from "radix-ui";
 import { DropdownMenu } from "radix-ui";
 
+import { createFavorite } from "@/pages/api/favorites/favorites";
+
 import {
   HeartFilledIcon,
   DotsHorizontalIcon,
@@ -21,7 +23,21 @@ export function TextCard({
   tag,
   user,
 }: Text) {
+
+  const favoriteText =  async (textId: number) => {
+    try {
+      const response = await createFavorite(textId)
+
+      const json = await response.json()
+
+      alert(json.message)
+    } catch (error) {
+      console.log(error)
+    }
+  }
   return (
+
+
     <article className="text-card" key={id}>
       {/* Header */}
       <div className="header-text-card">
@@ -75,6 +91,7 @@ export function TextCard({
         <div className="tag-footer-card">#{tag.nome}</div>
         <div className="favorito-info">
           <HeartFilledIcon
+          onClick={() => favoriteText(id)}
           width={19}
             className={`heart-icon ${isFavorited ? 'favorited' : ''}`}
           />

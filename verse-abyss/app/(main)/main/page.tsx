@@ -11,7 +11,7 @@ import './home.css'
 export default function Home() {
 
   return (
-    <div className="home">
+    <div className="home" id="scrollableDiv">
       <Hero
         title="Verse Abyss"
         text="Mergulhe nos escritos que habitam as profundezas da alma. Cada texto é um eco do invisível, uma centelha do abismo interior."
