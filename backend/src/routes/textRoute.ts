@@ -34,7 +34,7 @@ router.get('/get-by-user/:userId', verifyToken , async (req, res) => {
 })
 
 // Rota protegida - exige autenticação
-router.post('/create-text', async (req, res) => {
+router.post('/create-text', verifyToken, async (req, res) => {
     try {
         await textController.createText(req, res)
     } catch (err) {
