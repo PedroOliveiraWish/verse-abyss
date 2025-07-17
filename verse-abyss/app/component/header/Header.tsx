@@ -8,10 +8,14 @@ import {
   StarIcon,
   BookmarkIcon,
   PersonIcon,
-  ExitIcon
+  ExitIcon,
+  PlusIcon
 } from "@radix-ui/react-icons";
 
+import { CreateText } from "../DialogCreateText/CreateText";
+
 import { useRouter } from "next/navigation";
+
 
 export function Header() {
 
@@ -19,7 +23,7 @@ export function Header() {
 
   return (
     <div className="header">
-      <div className="title-header">
+      <div className="title-header" onClick={() => router.push('/main')}>
         Verse Abyss
       </div>
       <nav>
@@ -43,6 +47,9 @@ export function Header() {
         </ul>
 
         <ul>
+          <li>
+            <span><CreateText /></span>
+          </li>
           <li onClick={() => router.push('/')}>
             <ExitIcon />
             <span>Sair</span>

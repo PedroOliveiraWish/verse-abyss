@@ -48,7 +48,7 @@ export default function TextByTagId() {
     }
 
     return (
-        <div className="tag-id-page">
+        <div className="tag-id-page" id="scrollableDiv">
 
             <Hero
                 title={`#${tagTitle}`}
@@ -57,9 +57,6 @@ export default function TextByTagId() {
             />
 
 
-            <div
-                id="scrollableDiv"
-            >
                 <InfiniteScroll
                     dataLength={texts.length}
                     next={fetchTextsTags}
@@ -81,6 +78,5 @@ export default function TextByTagId() {
                     </div>
                 </InfiniteScroll>
             </div>
-        </div>
     );
 }
