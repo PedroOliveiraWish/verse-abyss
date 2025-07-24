@@ -8,6 +8,8 @@ import { Text } from "@/pages/interface/text";
 
 import { TextCard } from "../textCard/TextCard";
 
+import Loader from "../loader/Loader";
+
 import './infinite.css'
 
 export default function InfiniteScrollTexts() {
@@ -49,7 +51,7 @@ export default function InfiniteScrollTexts() {
         dataLength={texts.length}
         next={fetchTexts}
         hasMore={hasMore}
-        loader={<h4>Carregando mais textos...</h4>}
+        loader={<Loader />}
         endMessage={<p>🌌 Não há mais textos para exibir.</p>}
         scrollableTarget="scrollableDiv"
       >

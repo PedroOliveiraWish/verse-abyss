@@ -1,0 +1,106 @@
+.text-card-perfil {
+  background-color: var(--card-bg);
+  box-shadow: 0 4px 12px var(--card-shadow);
+  padding: 1.25rem;
+  border-radius: 1rem;
+  color: var(--text-primary);
+  transition: transform 0.2s ease;
+  margin: 1rem 0;
+
+  &:hover {
+    transform: translateY(-4px);
+  }
+
+  .header-text-card,
+  .footer-text-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .people {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+
+    .avatar-fallback {
+      background-color: var(--primary-color);
+      color: var(--button-text);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nome-email {
+      display: flex;
+      flex-direction: column;
+
+      .nome {
+        font-weight: 600;
+        color: var(--text-primary);
+      }
+
+      .data {
+        font-size: 0.85rem;
+        color: var(--text-muted);
+      }
+    }
+  }
+
+  .separator {
+    margin: 0.75rem 0;
+    height: 1px;
+    background-color: var(--input-border);
+    opacity: 0.5;
+  }
+
+  .body-text-card {
+    .title-text-card {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .content-text-card {
+      color: var(--text-secondary);
+      font-size: 1rem;
+      line-height: 1.6;
+      white-space: pre-line;
+    }
+  }
+
+  .footer-text-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .tag-footer-card {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      background-color: var(--input-bg);
+      padding: 0.25rem 0.5rem;
+      border-radius: 0.5rem;
+    }
+
+    .favorito-info {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.9rem;
+      color: var(--accent-light);
+
+      svg {
+        fill: var(--accent-light);
+      }
+    }
+  }
+}
+
+.endMessage {
+    margin-top: 1rem;
+}

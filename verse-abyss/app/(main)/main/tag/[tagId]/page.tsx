@@ -9,6 +9,8 @@ import InfiniteScroll from "react-infinite-scroll-component";
 
 import { Hero } from "@/app/component/hero/hero";
 
+import Loader from "@/app/component/loader/Loader";
+
 import './tagId.css'
 
 export default function TextByTagId() {
@@ -61,7 +63,7 @@ export default function TextByTagId() {
                     dataLength={texts.length}
                     next={fetchTextsTags}
                     hasMore={hasMore}
-                    loader={<h4>Carregando mais textos...</h4>}
+                    loader={<Loader />}
                     endMessage={<p>🌌 Não há mais textos para exibir.</p>}
                     scrollableTarget="scrollableDiv"
                 >

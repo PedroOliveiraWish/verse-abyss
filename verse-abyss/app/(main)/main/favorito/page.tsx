@@ -9,6 +9,8 @@ import { Avatar } from "radix-ui";
 import { HeartFilledIcon } from "@radix-ui/react-icons";
 import InfiniteScroll from 'react-infinite-scroll-component';
 
+import Loader from "@/app/component/loader/Loader"
+
 import './favorite.css'
 
 export default function FavotitePage() {
@@ -52,7 +54,7 @@ export default function FavotitePage() {
                     dataLength={favorites.length}
                     next={fetchFavorites}
                     hasMore={hasMore}
-                    loader={<h4>Carregando mais textos...</h4>}
+                    loader={<Loader />}
                     endMessage={<p>🌌 Não há mais textos para exibir.</p>}
                     scrollableTarget="scrollableDiv"
                 >

@@ -40,7 +40,7 @@ export function Header() {
             <BookmarkIcon />
             <span>Tags</span>
           </li>
-          <li>
+          <li onClick={() => router.push('/main/user')}>
             <PersonIcon />
             <span>User</span>
           </li>

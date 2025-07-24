@@ -1,0 +1,66 @@
+@import '../../../styles/variables';
+
+.tabs-root {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem;
+  background-color: var(--background-surface);
+  border-radius: 1rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.tabs-list {
+  display: flex;
+  gap: 1rem;
+  justify-content: start;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--input-border);
+  padding-bottom: 0.5rem;
+}
+
+.tabs-trigger {
+  background-color: transparent;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 1rem;
+  color: var(--text-secondary);
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &[data-state='active'] {
+    background-color: var(--primary-color);
+    color: var(--background-app);
+    box-shadow: 0 0 0 2px var(--focus-glow);
+  }
+
+  &:hover {
+    background-color: var(--accent-light);
+    color: var(--background-app);
+  }
+}
+
+.tab-container {
+  padding: 1rem;
+  border-radius: 0.75rem;
+}
+
+.tabs-content {
+  color: var(--text-primary);
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(0.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
