@@ -125,9 +125,14 @@ export class TextService {
         }
     }
 
-    async getAllTextsByUserId(userId: number): Promise<Text[]> {
+    async getAllTextsByUserId(userId: number, page: number, limit: number): Promise<Text[]> {
         try {
+
+            const skip = (page - 1) * limit;
+
             const allTexts = await prisma.text.findMany({
+                skip,
+                take: limit,
                 where: {
                     userId: userId
                 },
@@ -140,6 +145,9 @@ export class TextService {
                             email: true
                         }
                     }
+                },
+                orderBy: {
+                    criadoEm: 'desc'
                 }
             })
 

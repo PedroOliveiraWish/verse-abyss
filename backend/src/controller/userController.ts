@@ -63,4 +63,22 @@ export class UserController {
             return res.status(400).json({ message: error.message || "Erro ao buscar usuário." });
         }
     }
+
+    async deleteUser(req: Request, res: Response): Promise<Response> {
+        const user = req.user;
+
+        if (!user || typeof user === "string") {
+            return res.status(400).json({ message: "Usuário não identificado no token" })
+        }
+
+        const userId = user.userId;
+
+        try {
+            await userService.deleteUser(userId);
+            return res.status(200).json({ message: "Usuário deletado com sucesso!" });
+        } catch (error: any) {
+            console.error(error);
+            return res.status(400).json({ message: error.message || "Erro ao deletar usuário." });
+        }
+    }
 }

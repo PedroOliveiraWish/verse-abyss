@@ -7,7 +7,7 @@ const userController = new UserController();
 const router = Router();
 
 // Rota protegida - exige autenticação
-router.get('/get-by-id', verifyToken ,  async (req, res) => {
+router.get('/get-by-id', verifyToken, async (req, res) => {
     try {
         await userController.getUserById(req, res)
     } catch (err) {
@@ -30,6 +30,15 @@ router.post('/login', async (req, res) => {
         await userController.loginUser(req, res)
     } catch (err) {
         console.error("Erro em POST /login", err)
+    }
+})
+
+// Rota privada - exige autenticação
+router.delete('/delete', verifyToken, async (req, res) => {
+    try {
+        await userController.deleteUser(req, res)
+    } catch (err) {
+        console.error("Erro em DELETE /delete", err)
     }
 })
 

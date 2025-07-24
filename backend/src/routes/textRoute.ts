@@ -25,7 +25,7 @@ router.get('/get-by-tag/:tagId', async (req, res) => {
 })
 
 // Rota protegida - exige autenticação
-router.get('/get-by-user/:userId', verifyToken , async (req, res) => {
+router.get('/get-by-user', verifyToken , async (req, res) => {
     try {
         await textController.getAllTextsByUserId(req, res)
     } catch (err) {

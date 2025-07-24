@@ -60,8 +60,8 @@ export class TextController {
 
         const page = Number(req.query.page) || 1;
         const limit = Number(req.query.limit) || 10;
-        
-        console.log('page') 
+
+        console.log('page')
         console.log(page)
 
         try {
@@ -83,8 +83,11 @@ export class TextController {
 
         const userId = user.userId;
 
+        const page = Number(req.query.page) || 1;
+        const limit = Number(req.query.limit) || 10;
+
         try {
-            const allTexts = await textService.getAllTextsByUserId(Number(userId))
+            const allTexts = await textService.getAllTextsByUserId(Number(userId), page, limit);
             if (!allTexts) {
                 return res.status(400).send({ message: "Não foi possível obter todos os textos devido a um erro interno!" })
             }

@@ -100,4 +100,31 @@ export class UserService {
             throw e;
         }
     }
+
+    async deleteUser(userId: number): Promise<void> {
+        try {
+            const user = await prisma.user.findUnique({
+                where: {
+                    id: userId
+                }
+            })
+
+            if (!user) {
+                throw new Error("Usuário não encontrado!")
+            }
+
+            await prisma.user.delete({
+                where: {
+                    id: userId
+                }
+            })
+
+            console.log("Usuário deletado com sucesso!")
+        } catch (e) {
+            console.error("Não foi possível deletar o usuário! " + e)
+            throw e;
+        } finally {
+            await prisma.$disconnect();
+        }
+    }
 }
